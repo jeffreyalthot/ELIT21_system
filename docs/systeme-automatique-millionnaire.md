@@ -656,3 +656,52 @@ def build_report(data: dict, job_id: str) -> list[str]:
 - Pas de scraping interdit.
 - Respect des conditions d’utilisation des API.
 - Transparence sur les limites de performance.
+
+---
+
+# Liste de 25 programmes à unifier en une seule plateforme payante
+Objectif : proposer un **programme vendeur** qui regroupe des micro‑outils complémentaires pour une **même audience**, afin de maximiser la valeur perçue et la rétention.  
+Le principe : chaque micro‑programme peut être vendu séparément, mais **l’unification** en une plateforme unique crée un produit premium par abonnement.
+
+## Meilleures idées de programmes à unifier (25 modules)
+1. **Audit SEO automatique** (analyse technique + recommandations).
+2. **Générateur de briefs SEO** (mots‑clés, intent, plan d’article).
+3. **Planification éditoriale** (calendrier de contenus).
+4. **Générateur de titres & hooks** (pour blogs et réseaux).
+5. **Analyse concurrentielle de contenu** (top pages, gaps).
+6. **Suivi de positions SEO** (rang, évolution, alertes).
+7. **Analyse vitesse & Core Web Vitals** (diagnostic + actions).
+8. **Optimisation on‑page** (check‑list par URL).
+9. **Générateur de FAQ** (questions SEO + schema).
+10. **Générateur de meta‑descriptions** (par page).
+11. **Générateur d’images/briefs visuels** (prompts + styles).
+12. **Rédaction de posts réseaux sociaux** (multi‑formats).
+13. **Plan de diffusion multi‑canal** (email + social + blog).
+14. **Analyse de performance de contenu** (CTR, durée, conversions).
+15. **Veille d’actualités sectorielles** (alertes hebdo).
+16. **Générateur de landing pages** (sections + copy).
+17. **A/B testing des titres** (suggestions + scoring).
+18. **Générateur d’emails marketing** (séquences).
+19. **Analyse de campagnes publicitaires** (résumé + actions).
+20. **Segmentation d’audience** (personas + messages).
+21. **Calculateur ROI marketing** (budget, CAC, LTV).
+22. **Dashboard KPIs marketing** (MRR, CAC, churn).
+23. **CRM léger** (suivi des leads).
+24. **Générateur d’offres & propositions commerciales** (templates).
+25. **Assistant de support client** (FAQ + réponses type).
+
+## Programme vendeur unifié (positionnement recommandé)
+**Nom possible :** *Suite Marketing Automatique*  
+**Promesse :** tout‑en‑un pour **attirer, convertir et retenir** des clients avec un minimum d’opérations manuelles.  
+**Cible idéale :** indépendants, PME, agences, e‑commerce.
+
+## Pourquoi ces 25 modules se vendent bien ensemble
+- **Chaîne de valeur complète** : acquisition → conversion → rétention.
+- **Dépendances naturelles** : un audit SEO nourrit le plan éditorial, qui nourrit la diffusion, qui nourrit la conversion.
+- **Abonnement justifié** : usage régulier (hebdo/mensuel).
+- **Upsell facile** : versions Pro (plus de sites, plus d’exports, API, intégrations).
+
+## Étape suivante recommandée
+1. Choisir **1 niche principale** (ex. e‑commerce local).
+2. Lancer **3 modules cœur** (audit SEO, planning éditorial, génération de posts).
+3. Ajouter **1 nouveau module par mois** pour augmenter la valeur perçue.
