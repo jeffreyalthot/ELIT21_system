@@ -5,6 +5,7 @@ Poser le socle technique pour une plateforme unique qui regroupe 15 programmes u
 Ce socle fournit :
 - un **registre de modules** (catalogue),
 - un **bus d'événements** (communication interne),
+- un **bus de commandes** (orchestration),
 - un **bootstrap** minimal (initialisation),
 - une **gestion d'abonnement** simple (plans + accès modules).
 
@@ -12,7 +13,7 @@ Ce socle fournit :
 ```
 /unified_platform
   __init__.py        # exports principaux
-  bus.py             # EventBus (publish/subscribe)
+  bus.py             # EventBus & CommandBus
   registry.py        # ModuleRegistry (catalogue)
   modules.py         # liste des modules (25 + pack 15)
   bootstrap.py       # assemblage minimal
