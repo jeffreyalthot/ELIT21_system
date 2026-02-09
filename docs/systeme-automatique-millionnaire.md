@@ -402,3 +402,122 @@ def generate_report_task(payload: dict) -> str:
 2. Écrire **3 sources de données légales**.
 3. Implémenter **/generate + queue + stockage**.
 4. Automatiser **email + paiement**.
+
+---
+
+# Programme Python minimal (réaliste et automatisable)
+Objectif : proposer **un socle Python** exécutable qui automatise un livrable payant **sans promesse de richesse**.  
+Le but est d’**industrialiser** un service utile, pas de garantir un revenu.
+
+## 1) Cas d’usage conseillé (simple et légal)
+**Rapport hebdomadaire PDF + CSV** pour une micro‑niche B2B.  
+Exemples : veille concurrentielle, prix publics, tendances de mots‑clés, KPI sectoriels.
+
+## 2) Fonctionnement automatique (résumé)
+1. Collecte de données **légales** (API publiques).
+2. Nettoyage et enrichissement.
+3. Génération automatique d’un PDF/CSV.
+4. Envoi automatique par email.
+5. Suivi des jobs (statuts + erreurs).
+
+## 3) Structure de projet (Python)
+```
+autobusiness/
+  app/
+    api.py
+    jobs.py
+    services/
+      collect.py
+      enrich.py
+      report.py
+    storage/
+      files.py
+  scripts/
+    run_daily.py
+  data/
+    reports/
+```
+
+## 4) Code Python minimal (MVP exécutable)
+### app/api.py
+```python
+from fastapi import FastAPI
+from app.jobs import enqueue_report
+
+app = FastAPI(title="AutoBusiness API")
+
+@app.post("/generate")
+def generate_report(payload: dict):
+    job_id = enqueue_report(payload)
+    return {"status": "queued", "job_id": job_id}
+```
+
+### app/jobs.py
+```python
+import uuid
+from app.services.collect import collect_data
+from app.services.enrich import enrich_data
+from app.services.report import build_report
+from app.storage.files import save_report
+
+def enqueue_report(payload: dict) -> str:
+    job_id = str(uuid.uuid4())
+    data = collect_data(payload)
+    enriched = enrich_data(data)
+    report_path = build_report(enriched, job_id)
+    save_report(report_path, job_id)
+    return job_id
+```
+
+### app/services/collect.py
+```python
+def collect_data(payload: dict) -> dict:
+    # TODO: remplacer par des API légales (ex: statistiques publiques)
+    return {"source": "public_api", "payload": payload, "items": []}
+```
+
+### app/services/enrich.py
+```python
+def enrich_data(data: dict) -> dict:
+    # TODO: scoring / nettoyage / résumé
+    data["enriched"] = True
+    return data
+```
+
+### app/services/report.py
+```python
+from pathlib import Path
+
+def build_report(data: dict, job_id: str) -> str:
+    output = Path("data/reports") / f"{job_id}.txt"
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(str(data))
+    return str(output)
+```
+
+### app/storage/files.py
+```python
+from pathlib import Path
+
+def save_report(path: str, job_id: str) -> None:
+    Path(path).write_text(Path(path).read_text())
+```
+
+### scripts/run_daily.py
+```python
+from app.jobs import enqueue_report
+
+if __name__ == "__main__":
+    enqueue_report({"mode": "daily"})
+```
+
+## 5) Checklist d’automatisation (pratique)
+- [ ] Remplacer la collecte par **API légales**.
+- [ ] Générer un **PDF/CSV** au lieu d’un `.txt`.
+- [ ] Ajouter un **scheduler** (cron/APS).
+- [ ] Ajouter **Stripe** + email d’envoi.
+- [ ] Ajouter **logs + alertes**.
+
+## 6) Note réaliste
+Ce programme **n’assure pas** un revenu millionnaire.  
+Il fournit une **base automatique** pour bâtir un service payant, puis l’optimiser.
