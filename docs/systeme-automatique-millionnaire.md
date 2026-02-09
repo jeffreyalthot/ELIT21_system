@@ -33,6 +33,61 @@ Créer une activité en ligne **légale**, **anonyme** autant que possible, et *
    - Tableaux de bord (MRR, CAC, churn).
    - Outsourcing ponctuel (design, contenus).
 
+## Poursuite du projet : version « Python-first »
+Objectif : automatiser un maximum de tâches techniques **avec Python**, tout en restant **légal** et **réaliste**.
+
+### 1) Choisir un micro-SaaS automatisable (exemples compatibles Python)
+- **Générateur de contenus utiles** (briefs SEO, résumés, scripts vidéo, FAQ) pour niches spécifiques.
+- **Surveillance de prix / concurrence** (alertes, comparateurs) pour e-commerce B2B.
+- **Extraction + enrichissement** (données publiques) pour pros (immobilier, SaaS, RH).
+- **Outils de calcul métier** (simulateurs financiers, ROI, conformité) vendus en abonnement.
+
+### 2) Stack technique Python recommandée
+- **Backend API** : FastAPI (rapide, doc auto).
+- **Tâches planifiées** : APScheduler / Celery + Redis.
+- **Persistance** : PostgreSQL.
+- **Automatisation** : scripts Python + queues (RQ/Celery).
+- **Paiements** : Stripe (webhooks).
+- **Emailing** : MailerLite / Brevo (API).
+- **Déploiement** : Docker + VPS.
+
+### 3) Fonctions d’automatisation à coder en priorité
+1. **Pipeline de génération de valeur**
+   - Collecte de données (API, sources publiques).
+   - Nettoyage / enrichissement.
+   - Génération de livrables (PDF, CSV, tableaux).
+2. **Onboarding client automatisé**
+   - Création de compte.
+   - Essai gratuit + onboarding email.
+   - Rappels d’expiration / upsell.
+3. **Support niveau 1**
+   - Base de connaissances + réponses auto.
+4. **Monitoring business**
+   - Tableau de bord MRR / churn.
+   - Alertes (pannes, paiements échoués).
+
+### 4) Structure de projet Python (exemple minimal)
+```
+app/
+  api/            # FastAPI endpoints
+  core/           # config, auth, utils
+  jobs/           # tâches planifiées
+  services/       # logique métier
+  storage/        # DB, fichiers
+  templates/      # livrables (PDF/CSV)
+```
+
+## Plan d’exécution réaliste (12 semaines)
+1. **Semaine 1–2** : étude de niche + preuve de demande (SEO, forums, concurrents).
+2. **Semaine 3–4** : MVP (FastAPI + Stripe + 1 livrable utile).
+3. **Semaine 5–8** : acquisition (contenus, pages de vente, tests).
+4. **Semaine 9–12** : automatisation avancée (emails, alertes, dashboard).
+
+## Automatisation « maximale » sans tomber dans l’illégal
+- **Pas de promesses de richesse garantie**.
+- **Respect des conditions d’utilisation** des sources de données.
+- **Transparence sur les résultats** (les revenus dépendent du marché et de l’exécution).
+
 ## Ce que vous devez faire malgré tout
 Même dans un système automatisé, il faut :
 - **Concevoir l’offre** et valider un besoin réel.
