@@ -111,5 +111,70 @@ Même dans un système automatisé, il faut :
 4. **Automatisation (ongoing)**
    - Emails, facturation, support.
 
+## Suite du projet (Python) : plan d’action concret
+Objectif : passer de la théorie à une base technique réellement automatisée.
+
+### Étape A — Choisir un cas d’usage monétisable (micro-niche)
+Exemples réalistes et légaux :
+- **Rapports récurrents B2B** (ex. veille concurrentielle dans une niche précise).
+- **Tableaux de bord** (indicateurs clés pour une industrie).
+- **Outils d’aide à la décision** (simulateurs ROI, scoring simple, comparateurs).
+
+### Étape B — MVP Python minimal (2–3 semaines)
+Livrables indispensables :
+- **API FastAPI** avec 3 endpoints : `/signup`, `/generate`, `/status`.
+- **Job queue** (Celery + Redis) pour exécuter la génération en asynchrone.
+- **Stockage** des résultats (PostgreSQL ou fichiers avec versioning).
+- **Paiement** (Stripe Checkout + webhook `payment_succeeded`).
+
+### Étape C — Pipeline d’automatisation (4–6 semaines)
+À automatiser en priorité :
+1. **Collecte de données**  
+   - Connecteurs API (sources légales) + rate limiting.
+2. **Nettoyage & enrichissement**  
+   - Normalisation, scoring, résumé.
+3. **Génération de livrables**  
+   - PDF/CSV + templates réutilisables.
+4. **Distribution automatique**  
+   - Email transactionnel + accès client sécurisé.
+
+### Étape D — Pilotage & stabilisation
+À mettre en place rapidement :
+- **Monitoring** (Sentry/Prometheus) + alertes email.
+- **Logs structurés** (pour diagnostiquer les échecs).
+- **Tableau de bord** (MRR, churn, taux de conversion).
+
+## Exemple d’arborescence Python (version opérationnelle)
+```
+app/
+  api/
+    routes.py
+  core/
+    config.py
+    security.py
+  jobs/
+    worker.py
+    tasks.py
+  services/
+    data_collect.py
+    enrich.py
+    generate_report.py
+  storage/
+    db.py
+    files.py
+  templates/
+    report.html
+```
+
+## Points clés pour une automatisation rentable
+- **Concentrez-vous sur une seule niche** au départ.
+- **Standardisez le livrable** pour réduire le coût d’exécution.
+- **Mesurez tout** (coût par génération, taux de conversion, churn).
+- **Automatisez les relances** (emails, trials expirés, upgrades).
+
+## Note de réalisme (importante)
+Même avec un maximum d’automatisation, **le revenu “millionnaire” n’est pas garanti**.  
+Ce qui est réaliste : construire un système **scalable**, automatisé, et améliorer progressivement les métriques.
+
 ## Conclusion
 Un système « automatique » est possible **après** une phase de création, test et optimisation. Viser le million sans implication est irréaliste ; viser un **business digital automatisé** et scalable est un objectif plus réaliste.
