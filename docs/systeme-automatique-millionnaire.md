@@ -705,3 +705,29 @@ Le principe : chaque micro‑programme peut être vendu séparément, mais **l�
 1. Choisir **1 niche principale** (ex. e‑commerce local).
 2. Lancer **3 modules cœur** (audit SEO, planning éditorial, génération de posts).
 3. Ajouter **1 nouveau module par mois** pour augmenter la valeur perçue.
+
+---
+
+# Démarrage du développement Python (bus système intégré)
+Objectif : créer une **base technique** pour orchestrer les 25 modules via un **bus de commandes/événements**.
+
+## Structure initiale proposée
+```
+autobusiness/
+  __init__.py
+  bus.py          # EventBus + CommandBus
+  modules.py      # liste des 25 modules
+  registry.py     # activation/désactivation des modules
+  main.py         # bootstrap de l’architecture
+```
+
+## Bus système intégré (concept)
+- **CommandBus** : gère les actions explicites (ex. `list_modules`).
+- **EventBus** : diffuse des événements entre modules (ex. `module_enabled`).
+- **Registry** : centralise l’état des modules (activé/désactivé).
+
+## Prochaines étapes conseillées
+1. Ajouter des **handlers métiers** par module (ex. `generate_brief`, `audit_site`).
+2. Définir des **événements standard** (ex. `report_generated`, `lead_scored`).
+3. Brancher une **API FastAPI** pour exposer les commandes.
+4. Ajouter une **file de jobs** (Celery/RQ) pour les tâches longues.
