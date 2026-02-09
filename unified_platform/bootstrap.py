@@ -32,7 +32,11 @@ def bootstrap_with_commands() -> tuple[ModuleRegistry, EventBus, SubscriptionMan
         ]
 
     def handle_publish_event(command: Command) -> None:
-        event = Event(name=command.payload["event"], payload=command.payload.get("data", {}))
+        event = Event(
+            name=command.payload["event"],
+            payload=command.payload.get("data", {}),
+            metadata=command.payload.get("metadata", {}),
+        )
         bus.publish(event)
 
     def handle_set_module_state(command: Command) -> None:

@@ -20,6 +20,14 @@ Ce socle fournit :
   subscription.py    # abonnements + accès
 ```
 
+## Format des événements & commandes
+Chaque message publié sur les bus est normalisé afin d'être traçable et exploitable :
+- `event_id` / `command_id` (UUID),
+- `name` (ex: `lead.created`),
+- `payload` (données métier),
+- `occurred_at` / `issued_at` (timestamp UTC),
+- `metadata` (contextes techniques: source, trace, etc.).
+
 ## Prochaine étape recommandée
 1. Définir le **format des événements** (ex: "lead.created", "report.generated").
 2. Ajouter un **port d'API** (ex: FastAPI) pour exposer le catalogue et lancer des jobs.

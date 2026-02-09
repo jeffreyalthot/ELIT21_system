@@ -1,7 +1,7 @@
 """Unified platform package for the unified modules suite."""
 
 from unified_platform.registry import ModuleRegistry
-from unified_platform.bus import Command, CommandBus, EventBus
+from unified_platform.bus import Command, CommandBus, Event, EventBus
 from unified_platform.modules import load_default_modules, load_unified_15_modules
 from unified_platform.subscription import (
     Subscription,
@@ -15,6 +15,7 @@ __all__ = [
     "Command",
     "CommandBus",
     "ModuleRegistry",
+    "Event",
     "EventBus",
     "Subscription",
     "SubscriptionManager",
