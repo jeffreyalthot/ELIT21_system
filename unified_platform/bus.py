@@ -1,17 +1,43 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from datetime import datetime
 from typing import Any, Callable, Dict, List
+from uuid import uuid4
 
 
 @dataclass(frozen=True)
 class Event:
     name: str
     payload: Dict[str, Any]
+    event_id: str = field(default_factory=lambda: str(uuid4()))
+    occurred_at: datetime = field(default_factory=datetime.utcnow)
+    metadata: Dict[str, Any] = field(default_factory=dict)
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "event_id": self.event_id,
+            "name": self.name,
+            "payload": self.payload,
+            "occurred_at": self.occurred_at.isoformat(),
+            "metadata": self.metadata,
+        }
 
 
 @dataclass(frozen=True)
 class Command:
     name: str
     payload: Dict[str, Any]
+    command_id: str = field(default_factory=lambda: str(uuid4()))
+    issued_at: datetime = field(default_factory=datetime.utcnow)
+    metadata: Dict[str, Any] = field(default_factory=dict)
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "command_id": self.command_id,
+            "name": self.name,
+            "payload": self.payload,
+            "issued_at": self.issued_at.isoformat(),
+            "metadata": self.metadata,
+        }
 
 
 class EventBus:
