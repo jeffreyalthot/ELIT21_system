@@ -154,3 +154,25 @@ def load_default_modules() -> list[Module]:
             category="retention",
         ),
     ]
+
+
+def load_unified_15_modules() -> list[Module]:
+    core_keys = [
+        "seo_audit",
+        "seo_briefs",
+        "editorial_calendar",
+        "title_hooks",
+        "content_gap",
+        "rank_tracking",
+        "core_web_vitals",
+        "onpage_optimization",
+        "faq_generator",
+        "meta_descriptions",
+        "social_posts",
+        "landing_page_generator",
+        "email_sequences",
+        "roi_calculator",
+        "kpi_dashboard",
+    ]
+    modules_by_key = {module.key: module for module in load_default_modules()}
+    return [modules_by_key[key] for key in core_keys]
