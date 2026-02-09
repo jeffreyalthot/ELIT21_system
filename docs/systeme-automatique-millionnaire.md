@@ -521,3 +521,138 @@ if __name__ == "__main__":
 ## 6) Note réaliste
 Ce programme **n’assure pas** un revenu millionnaire.  
 Il fournit une **base automatique** pour bâtir un service payant, puis l’optimiser.
+
+---
+
+# Suite demandée : programme Python « auto » mais légal (proposition concrète)
+Objectif : fournir une **base exécutable** et **automatisée** qui reste **légale**, sans promesse de richesse garantie.  
+Le cœur : **collecte via API publiques**, **génération de livrables**, **planification automatique**, **envoi email**.
+
+## 1) Cas d’usage recommandé (simple, légal, monétisable)
+Un **rapport périodique** pour une micro‑niche B2B (ex. tendances de prix publics, indicateurs sectoriels, veille concurrentielle **via sources autorisées**).
+- **Entrée** : une niche + mots‑clés + périodicité.
+- **Sortie** : PDF + CSV envoyés automatiquement.
+- **Monétisation** : abonnement mensuel (Stripe).
+
+## 2) Architecture Python minimale (mais prête à tourner)
+```
+autobusiness/
+  app/
+    api.py            # FastAPI
+    config.py         # paramètres
+    jobs.py           # file d'attente simple
+    scheduler.py      # planification
+    services/
+      collect.py      # collecte API publiques
+      enrich.py       # nettoyage / scoring
+      report.py       # PDF/CSV
+    storage/
+      files.py        # sauvegarde livrables
+    notifications/
+      email.py        # envoi email
+  scripts/
+    run_daily.py
+```
+
+## 3) Exemple « prêt à adapter » (squelette simple)
+### app/config.py
+```python
+from pydantic import BaseSettings
+
+class Settings(BaseSettings):
+    report_output_dir: str = "data/reports"
+    email_sender: str = "reports@example.com"
+    email_api_key: str = "CHANGE_ME"
+
+settings = Settings()
+```
+
+### app/notifications/email.py
+```python
+def send_email(to_email: str, subject: str, body: str, attachments: list[str]) -> None:
+    # TODO: intégrer un provider légal (Brevo/Mailgun/etc.)
+    # Simule l'envoi pour MVP
+    print(f"[EMAIL] to={to_email} subject={subject} attachments={attachments}")
+```
+
+### app/scheduler.py
+```python
+from apscheduler.schedulers.background import BackgroundScheduler
+from app.jobs import enqueue_report
+
+def start_scheduler() -> BackgroundScheduler:
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(
+        enqueue_report,
+        "cron",
+        hour=8,
+        minute=0,
+        kwargs={"payload": {"mode": "daily"}},
+    )
+    scheduler.start()
+    return scheduler
+```
+
+### app/jobs.py (version simple)
+```python
+import uuid
+from app.services.collect import collect_data
+from app.services.enrich import enrich_data
+from app.services.report import build_report
+from app.storage.files import save_report
+from app.notifications.email import send_email
+
+def enqueue_report(payload: dict) -> str:
+    job_id = str(uuid.uuid4())
+    data = collect_data(payload)
+    enriched = enrich_data(data)
+    report_paths = build_report(enriched, job_id)
+    save_report(report_paths, job_id)
+    send_email(
+        to_email=payload.get("email", "client@example.com"),
+        subject="Votre rapport automatique",
+        body="Veuillez trouver vos livrables en pièce jointe.",
+        attachments=report_paths,
+    )
+    return job_id
+```
+
+### app/services/collect.py (sources légales uniquement)
+```python
+def collect_data(payload: dict) -> dict:
+    # TODO: appeler des API publiques autorisées (ex: data.gouv, stats publiques)
+    return {"source": "public_api", "payload": payload, "items": []}
+```
+
+### app/services/report.py (PDF/CSV à produire)
+```python
+from pathlib import Path
+import csv
+
+def build_report(data: dict, job_id: str) -> list[str]:
+    output_dir = Path("data/reports")
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    txt_path = output_dir / f"{job_id}.txt"
+    txt_path.write_text(str(data))
+
+    csv_path = output_dir / f"{job_id}.csv"
+    with csv_path.open("w", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(["key", "value"])
+        for k, v in data.items():
+            writer.writerow([k, v])
+
+    return [str(txt_path), str(csv_path)]
+```
+
+## 4) Automatisation vraiment « auto »
+1. **Scheduler** (APS) → exécutions quotidiennes.
+2. **Email automatique** → livraison immédiate.
+3. **Logs** → suivi des erreurs.
+4. **Stripe** → accès payé (webhook).
+
+## 5) Gardes-fous légaux
+- Pas de scraping interdit.
+- Respect des conditions d’utilisation des API.
+- Transparence sur les limites de performance.
