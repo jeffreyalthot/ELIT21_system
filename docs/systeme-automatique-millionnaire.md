@@ -300,3 +300,105 @@ def build_report(data: dict, job_id: str) -> str:
 2. Définir **le livrable** en 3 lignes.
 3. Coder un **MVP Python** en 7 jours max.
 4. Obtenir **3–5 premiers clients payants**.
+
+---
+
+# Suite concrète (Python) : automatisation end-to-end
+Objectif : transformer le MVP en **système autonome**, monitoré, monétisé et scalable.
+
+## 8) Roadmap technique détaillée (priorisée)
+### 8.1 — Automatisation des jobs (semaine 1)
+- **Scheduler** : planifier des générations récurrentes (APScheduler).
+- **Queue** : exécuter en asynchrone (Celery + Redis).
+- **Idempotence** : éviter les doublons (clé de requête + verrou DB).
+
+### 8.2 — Qualité et fiabilité (semaine 2)
+- **Logs structurés** (JSON).
+- **Alertes** en cas d’échec (email/Slack).
+- **Retry** avec backoff.
+
+### 8.3 — Monétisation et livraison (semaine 3)
+- **Stripe Checkout** + webhook.
+- **Livraison automatique** par email.
+- **Portail client** minimal (statut + téléchargement).
+
+### 8.4 — Optimisation (semaine 4+)
+- **Cache** (Redis) pour limiter les coûts.
+- **Batching** (regrouper les requêtes).
+- **Metrics** (temps de génération, coût, taux de conversion).
+
+## 9) Exemples de configuration (squelette)
+### 9.1 — Config d’environnement (exemple)
+```
+APP_ENV=prod
+DATABASE_URL=postgresql+psycopg://user:pass@db:5432/app
+REDIS_URL=redis://redis:6379/0
+STRIPE_SECRET_KEY=sk_live_xxx
+STRIPE_WEBHOOK_SECRET=whsec_xxx
+EMAIL_PROVIDER=brevo
+EMAIL_API_KEY=xxx
+```
+
+### 9.2 — Scheduler minimal (app/jobs/scheduler.py)
+```python
+from apscheduler.schedulers.background import BackgroundScheduler
+from app.jobs.tasks import enqueue_report
+
+def start_scheduler() -> BackgroundScheduler:
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(
+        enqueue_report,
+        "cron",
+        hour=8,
+        minute=0,
+        kwargs={"payload": {"mode": "daily"}},
+    )
+    scheduler.start()
+    return scheduler
+```
+
+### 9.3 — Celery minimal (app/jobs/worker.py)
+```python
+from celery import Celery
+
+celery_app = Celery(
+    "autobusiness",
+    broker="redis://redis:6379/0",
+    backend="redis://redis:6379/1",
+)
+
+@celery_app.task
+def generate_report_task(payload: dict) -> str:
+    from app.services.collect import collect_data
+    from app.services.enrich import enrich_data
+    from app.services.report import build_report
+    from app.storage.files import save_report
+
+    data = collect_data(payload)
+    enriched = enrich_data(data)
+    report_path = build_report(enriched, payload.get("job_id", "manual"))
+    save_report(report_path, payload.get("job_id", "manual"))
+    return report_path
+```
+
+## 10) Checklists d’automatisation (opérationnel)
+### 10.1 — Delivery
+- [ ] Génération planifiée + manuelle.
+- [ ] Email transactionnel avec lien sécurisé.
+- [ ] Historique des livrables.
+
+### 10.2 — Monitoring
+- [ ] Logs d’erreurs centralisés.
+- [ ] Alertes sur jobs échoués.
+- [ ] Dashboard minimal (MRR, churn, taux d’activation).
+
+### 10.3 — Sécurité & conformité
+- [ ] Pas de scraping illégal.
+- [ ] Consentement + politique de confidentialité.
+- [ ] Sauvegardes et rotation des secrets.
+
+## 11) Next step immédiat (concret)
+1. Définir **1 livrable** + **1 niche**.
+2. Écrire **3 sources de données légales**.
+3. Implémenter **/generate + queue + stockage**.
+4. Automatiser **email + paiement**.
