@@ -1,7 +1,24 @@
-"""Unified platform package for the 25-module suite."""
+"""Unified platform package for the unified modules suite."""
 
 from unified_platform.registry import ModuleRegistry
 from unified_platform.bus import EventBus
-from unified_platform.modules import load_default_modules
+from unified_platform.modules import load_default_modules, load_unified_15_modules
+from unified_platform.subscription import (
+    Subscription,
+    SubscriptionManager,
+    SubscriptionPlan,
+    SubscriptionStatus,
+    build_default_plans,
+)
 
-__all__ = ["ModuleRegistry", "EventBus", "load_default_modules"]
+__all__ = [
+    "ModuleRegistry",
+    "EventBus",
+    "Subscription",
+    "SubscriptionManager",
+    "SubscriptionPlan",
+    "SubscriptionStatus",
+    "build_default_plans",
+    "load_default_modules",
+    "load_unified_15_modules",
+]
